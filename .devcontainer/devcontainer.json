@@ -5,9 +5,9 @@
   "remoteUser": "vscode",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "shutdownAction": "stopCompose",
-  "forwardPorts": [3013],
+  "forwardPorts": [3000,5432],
   "portsAttributes": {
-    "3013": {
+    "3000": {
       "label": "App",
       "onAutoForward": "notify"
     }
