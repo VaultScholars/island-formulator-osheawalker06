@@ -33,6 +33,7 @@ RUN gem install bundler -v 2.7.2
 # Install rake as a system gem (needed by herb gem during native extension build)
 RUN gem install rake
 
+RUN gem install rails -v 8.1.2
 
 RUN apt update && apt install -y postgresql-common
 RUN /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
