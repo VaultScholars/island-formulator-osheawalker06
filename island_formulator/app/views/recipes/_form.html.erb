@@ -1,0 +1,36 @@
+<%= form_with(model: recipe) do |form| %>
+  <div class="my-4">
+    <%= form.label :photo, "Recipe Photo", class: "block font-medium mb-2" %>
+    <%= form.file_field :photo, class: "block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 hover:file:bg-gray-200" %>
+  </div>
+  
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+
+  <%= form.label :product_type %>
+  <%= form.text_field :product_type %>
+
+  <%= form.label :method %>
+  <%= form.text_area :method %>
+
+  <h3>Ingredients</h3>
+
+  <%= form.fields_for :recipe_ingredients do |ri_form| %>
+    <div>
+      <%= ri_form.collection_select :ingredient_id,
+                                     Ingredient.all,
+                                     :id,
+                                     :name,
+                                     prompt: "Select Ingredient" %>
+
+      <%= ri_form.text_field :quantity,
+                             placeholder: "e.g. 100ml" %>
+
+      <%= ri_form.check_box :_destroy %>
+      <%= ri_form.label :_destroy, "Remove" %>
+    </div>
+  <% end %>
+
+  <%= form.submit %>
+
+<% end %>

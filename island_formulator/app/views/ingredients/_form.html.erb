@@ -12,6 +12,12 @@
     </div>
   <% end %>
 
+  <!-- PHOTO UPLOAD -->
+  <div class="my-4">
+    <%= form.label :photo, "Ingredient Photo", class: "block font-medium mb-2" %>
+    <%= form.file_field :photo, class: "block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 hover:file:bg-gray-200" %>
+  </div>
+
   <div class="space-y-6">
     <!-- NAME -->
     <div>
@@ -40,37 +46,33 @@
       <%= form.text_area :notes, rows: 5,
         class: "block w-full rounded-2xl bg-[#1f2a3a] text-white border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
     </div>
+
+    <!-- BENEFITS & PROPERTIES -->
     <div class="mb-4">
-  <%= form.label :tag_ids, "Benefits & Properties", class: "block font-bold mb-2" %>
-  <div class="grid grid-cols-2 gap-2">
-    <%# collection_check_boxes is a powerful Rails helper that generates all the checkboxes for us! %>
-    <%# It takes 4 main arguments: 
-        1. The field name (:tag_ids)
-        2. The collection to loop through (Tag.all)
-        3. The value to save (:id)
-        4. The text to show the user (:name)
-    %>
-    <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |cb| %>
-      <div class="flex items-center">
-        <%= cb.check_box class: "w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" %>
-        <%= cb.label class: "ml-2 text-sm text-gray-700" %>
+      <%= form.label :tag_ids, "Benefits & Properties", class: "block font-bold mb-2" %>
+
+      <div class="grid grid-cols-2 gap-2">
+        <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |cb| %>
+          <div class="flex items-center">
+            <%= cb.check_box class: "w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" %>
+            <%= cb.label class: "ml-2 text-sm text-gray-700" %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-</div>
+    </div>
 
     <!-- ACTIONS -->
     <div class="flex flex-wrap items-center gap-4 pt-2">
-    <%= form.submit(
-      ingredient.persisted? ? "Update Ingredient" : "Create Ingredient",
-      class: "w-full sm:w-auto rounded-xl px-8 py-4 bg-[#311432] hover:bg-[#4A1E48] text-white font-bold shadow-md transition duration-200"
-    ) %>
+      <%= form.submit(
+        ingredient.persisted? ? "Update Ingredient" : "Create Ingredient",
+        class: "w-full sm:w-auto rounded-xl px-8 py-4 bg-[#311432] hover:bg-[#4A1E48] text-white font-bold shadow-md transition duration-200"
+      ) %>
 
-
-      <%= link_to "Show this ingredient", @ingredient,
+      <% if ingredient.persisted? %>
+        <%= link_to "Show this ingredient", ingredient,
           class: "inline-block rounded-xl px-6 py-3 bg-[#9E7BB5] hover:brightness-110 text-white font-semibold shadow-md transition duration-200" %>
+      <% end %>
 
-      <!-- BUTTONS -->
       <%= link_to "Back to ingredients", ingredients_path,
         class: "inline-block rounded-xl px-6 py-3 bg-[#9E7BB5] hover:brightness-110 text-white font-semibold shadow-md transition duration-200" %>
     </div>
