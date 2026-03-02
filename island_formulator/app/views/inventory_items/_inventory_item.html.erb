@@ -1,0 +1,35 @@
+<div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <p class="text-xs uppercase tracking-widest text-slate-300">Ingredient</p>
+      <h3 class="text-xl font-extrabold text-slate-100"><%= inventory_item.ingredient.name %></h3>
+      <p class="text-slate-400 text-sm mt-1">
+        <%= [inventory_item.brand, inventory_item.size].compact.reject(&:blank?).join(" • ") %>
+      </p>
+    </div>
+
+    <span class="text-xs px-3 py-1 rounded-full bg-white/10 text-slate-200">
+      <%= inventory_item.purchase_date %>
+    </span>
+  </div>
+
+  <% if inventory_item.location.present? %>
+    <p class="text-slate-300 text-sm mt-3"><span class="text-slate-400">Location:</span> <%= inventory_item.location %></p>
+  <% end %>
+
+  <% if inventory_item.notes.present? %>
+    <p class="text-slate-400 text-sm mt-2"><%= truncate(inventory_item.notes, length: 110) %></p>
+  <% end %>
+
+  <div class="mt-5 flex gap-2">
+    <%= link_to "View", inventory_item_path(inventory_item),
+      class: "rounded-lg px-3 py-2 bg-white/10 hover:bg-white/15 text-slate-100 font-semibold" %>
+
+    <%= link_to "Edit", edit_inventory_item_path(inventory_item),
+      class: "rounded-lg px-3 py-2 bg-purple-500/20 hover:bg-purple-500/30 text-slate-100 font-semibold" %>
+
+    <%= button_to "Delete", inventory_item, method: :delete,
+      class: "rounded-lg px-3 py-2 bg-red-600/80 hover:bg-red-600 text-white font-semibold",
+      data: { turbo_confirm: "Delete this inventory item?" } %>
+  </div>
+</div>

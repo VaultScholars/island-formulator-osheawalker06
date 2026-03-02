@@ -1,0 +1,91 @@
+<% content_for :title, "Dashboard" %>
+
+<div class="w-full">
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <div>
+      <h1 class="text-4xl font-extrabold text-slate-100">Dashboard</h1>
+      <p class="text-slate-300 mt-1">Your overview: ingredients, recipes, inventory, and batches.</p>
+    </div>
+
+    <div class="flex flex-wrap gap-2">
+      <%= link_to "Add Ingredient", new_ingredient_path, class: "rounded-xl px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-semibold" %>
+      <%= link_to "New Recipe", new_recipe_path, class: "rounded-xl px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold" %>
+      <%= link_to "Add Inventory", new_inventory_item_path, class: "rounded-xl px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold" %>
+      <%= link_to "Log Batch", new_batch_path, class: "rounded-xl px-4 py-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold" %>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+    <div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
+      <p class="text-slate-300 text-xs uppercase tracking-widest">Ingredients</p>
+      <p class="text-4xl font-extrabold text-slate-100 mt-2"><%= @stats[:ingredients] %></p>
+      <p class="text-slate-400 mt-1 text-sm">Total saved</p>
+    </div>
+
+    <div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
+      <p class="text-slate-300 text-xs uppercase tracking-widest">Recipes</p>
+      <p class="text-4xl font-extrabold text-slate-100 mt-2"><%= @stats[:recipes] %></p>
+      <p class="text-slate-400 mt-1 text-sm">Formulas created</p>
+    </div>
+
+    <div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
+      <p class="text-slate-300 text-xs uppercase tracking-widest">Inventory</p>
+      <p class="text-4xl font-extrabold text-slate-100 mt-2"><%= @stats[:inventory] %></p>
+      <p class="text-slate-400 mt-1 text-sm">Purchases tracked</p>
+    </div>
+
+    <div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
+      <p class="text-slate-300 text-xs uppercase tracking-widest">Batches</p>
+      <p class="text-4xl font-extrabold text-slate-100 mt-2"><%= @stats[:batches] %></p>
+      <p class="text-slate-400 mt-1 text-sm">Production logs</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div class="bg-slate-900/40 border border-white/10 rounded-2xl shadow-lg p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-extrabold text-slate-100">Recent Recipes</h2>
+        <%= link_to "View all", recipes_path, class: "text-slate-300 hover:text-white underline" %>
+      </div>
+
+      <% if @recent_recipes.any? %>
+        <div class="space-y-3">
+          <% @recent_recipes.each do |recipe| %>
+            <div class="bg-slate-900/60 border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+              <div>
+                <p class="text-slate-100 font-semibold"><%= recipe.title %></p>
+                <p class="text-slate-400 text-sm"><%= recipe.product_type %></p>
+              </div>
+              <%= link_to "Open", recipe_path(recipe), class: "rounded-lg px-3 py-2 bg-white/10 hover:bg-white/15 text-slate-100 font-semibold" %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-slate-300">No recipes yet.</p>
+      <% end %>
+    </div>
+
+    <div class="bg-slate-900/40 border border-white/10 rounded-2xl shadow-lg p-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-extrabold text-slate-100">Recent Batches</h2>
+        <%= link_to "View all", batches_path, class: "text-slate-300 hover:text-white underline" %>
+      </div>
+
+      <% if @recent_batches.any? %>
+        <div class="space-y-3">
+          <% @recent_batches.each do |batch| %>
+            <div class="bg-slate-900/60 border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+              <div>
+                <p class="text-slate-100 font-semibold"><%= batch.recipe.title %></p>
+                <p class="text-slate-400 text-sm">Made on <%= batch.made_on %></p>
+              </div>
+              <%= link_to "Details", batch_path(batch), class: "rounded-lg px-3 py-2 bg-white/10 hover:bg-white/15 text-slate-100 font-semibold" %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-slate-300">No batches yet.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

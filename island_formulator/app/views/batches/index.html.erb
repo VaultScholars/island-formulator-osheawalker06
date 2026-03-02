@@ -1,0 +1,76 @@
+<% content_for :title, "Batches" %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-6 text-green-600 font-medium rounded-md inline-block" id="notice">
+      <%= notice %>
+    </p>
+  <% end %>
+
+  <!-- Page header (match Ingredient List heading + button style) -->
+  <div class="flex items-center justify-between mb-10">
+    <h1 class="text-5xl font-extrabold tracking-tight text-indigo-200 drop-shadow-sm">
+      Batches
+    </h1>
+
+    <%= link_to "Add New Batch", new_batch_path,
+      class: "rounded-full px-6 py-3 bg-[#b47cff] hover:bg-[#a96cff] text-white font-semibold shadow-lg transition" %>
+  </div>
+
+  <% if @batches.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 pb-24">
+      <% @batches.each do |batch| %>
+        <!-- Card (match Ingredient card vibe) -->
+        <div class="bg-[#eef2ff] rounded-[2.25rem] border-2 border-[#c9a2ff] shadow-[0_15px_40px_rgba(0,0,0,0.25)] p-8">
+          <!-- Top row -->
+          <div class="flex items-start justify-between gap-4">
+            <span class="inline-flex items-center rounded-full bg-[#e6dcff] px-3 py-1 text-xs font-bold text-indigo-700">
+              BATCH
+            </span>
+
+            <span class="text-xs text-gray-500">
+              <%= batch.made_on&.strftime("%b %d, %Y") %>
+            </span>
+          </div>
+
+          <!-- Title (same strong indigo tone) -->
+          <h2 class="mt-5 text-2xl font-extrabold text-indigo-900">
+            <%= batch.recipe&.title || "Unknown recipe" %>
+          </h2>
+
+          <!-- Notes -->
+          <% if batch.notes.present? %>
+            <p class="mt-3 text-sm text-gray-700 leading-relaxed">
+              <%= truncate(batch.notes, length: 120) %>
+            </p>
+          <% else %>
+            <p class="mt-3 text-sm text-gray-500 italic">
+              No notes yet.
+            </p>
+          <% end %>
+
+          <!-- Divider -->
+          <div class="mt-6 border-t border-[#c9a2ff]/40 pt-5 flex items-center justify-between">
+            <!-- View link (like ingredient “View”) -->
+            <%= link_to "View", batch, class: "text-sm font-semibold text-indigo-700 hover:text-indigo-900" %>
+
+            <!-- Actions (small pills like your UI) -->
+            <div class="flex items-center gap-3">
+              <%= link_to "Edit", edit_batch_path(batch),
+                class: "text-xs font-semibold px-4 py-2 rounded-full bg-white border border-[#c9a2ff] text-indigo-700 hover:bg-[#f4f0ff] transition" %>
+
+              <%= button_to "Delete", batch, method: :delete,
+                class: "text-xs font-semibold px-4 py-2 rounded-full bg-[#7a003c] text-white hover:opacity-90 transition",
+                data: { turbo_confirm: "Delete this batch log?" } %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-10 text-center text-gray-200">
+      <p class="text-lg font-semibold">No batches logged yet.</p>
+      <p class="text-sm text-gray-300 mt-2">Click “Add New Batch” to create your first log.</p>
+    </div>
+  <% end %>
+</div>

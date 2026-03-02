@@ -46,6 +46,9 @@
     <%= link_to "Back", recipes_path,
       class: "px-6 py-3 bg-gray-200 rounded-xl font-semibold shadow-md hover:bg-gray-300 transition duration-200" %>
 
+    <%= link_to "Log a New Batch", new_batch_path(recipe_id: @recipe.id),
+  class: "rounded-lg py-3 px-5 bg-green-600 text-white block font-medium" %>
+
     <%= button_to "Destroy", @recipe,
       method: :delete,
       data: { turbo_confirm: "Are you sure?" },

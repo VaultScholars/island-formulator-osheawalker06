@@ -1,0 +1,27 @@
+<div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
+  <div class="flex items-start justify-between gap-4">
+    <div>
+      <p class="text-xs uppercase tracking-widest text-slate-300">Recipe</p>
+      <h3 class="text-xl font-extrabold text-slate-100"><%= batch.recipe.title %></h3>
+
+      <% if batch.notes.present? %>
+        <p class="text-slate-400 text-sm mt-2"><%= truncate(batch.notes, length: 110) %></p>
+      <% else %>
+        <p class="text-slate-500 text-sm mt-2">No notes</p>
+      <% end %>
+    </div>
+
+    <span class="text-xs px-3 py-1 rounded-full bg-white/10 text-slate-200">
+      <%= batch.made_on %>
+    </span>
+  </div>
+
+  <div class="mt-5 flex gap-2">
+    <%= link_to "Details", batch_path(batch),
+      class: "rounded-lg px-3 py-2 bg-white/10 hover:bg-white/15 text-slate-100 font-semibold" %>
+
+    <%= button_to "Delete", batch, method: :delete,
+      class: "rounded-lg px-3 py-2 bg-red-600/80 hover:bg-red-600 text-white font-semibold",
+      data: { turbo_confirm: "Delete this batch log?" } %>
+  </div>
+</div>
