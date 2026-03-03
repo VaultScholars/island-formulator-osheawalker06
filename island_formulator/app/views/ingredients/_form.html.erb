@@ -12,44 +12,44 @@
     </div>
   <% end %>
 
-  <!-- PHOTO UPLOAD -->
-  <div class="my-4">
-    <%= form.label :photo, "Ingredient Photo", class: "block font-medium mb-2" %>
-    <%= form.file_field :photo, class: "block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 hover:file:bg-gray-200" %>
+<!-- PHOTO UPLOAD -->
+<div class="my-4">
+  <%= form.label :photo, "Ingredient Photo", class: "block font-medium mb-2 text-gray-700" %>
+  <%= form.file_field :photo, class: "block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 hover:file:bg-gray-200" %>
+</div>
+
+<div class="space-y-6">
+  <!-- NAME -->
+  <div>
+    <%= form.label :name, class: "block text-sm font-semibold text-gray-700 mb-2" %>
+    <%= form.text_field :name,
+    class: "block w-full rounded-2xl bg-gray-100 text-gray-600 border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
   </div>
 
-  <div class="space-y-6">
-    <!-- NAME -->
-    <div>
-      <%= form.label :name, class: "block text-sm font-semibold text-gray-300 mb-2" %>
-      <%= form.text_field :name,
-        class: "block w-full rounded-2xl bg-[#1f2a3a] text-white border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
-    </div>
+  <!-- CATEGORY -->
+  <div>
+    <%= form.label :category, class: "block text-sm font-semibold text-gray-700 mb-2" %>
+    <%= form.text_field :category,
+    class: "block w-full rounded-2xl bg-gray-100 text-gray-600 border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
+  </div>
 
-    <!-- CATEGORY -->
-    <div>
-      <%= form.label :category, class: "block text-sm font-semibold text-gray-300 mb-2" %>
-      <%= form.text_field :category,
-        class: "block w-full rounded-2xl bg-[#1f2a3a] text-white border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
-    </div>
+  <!-- DESCRIPTION -->
+  <div>
+    <%= form.label :description, class: "block text-sm font-semibold text-gray-700 mb-2" %>
+    <%= form.text_area :description, rows: 5,
+    class: "block w-full rounded-2xl bg-gray-100 text-gray-600 border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
+  </div>
 
-    <!-- DESCRIPTION -->
-    <div>
-      <%= form.label :description, class: "block text-sm font-semibold text-gray-300 mb-2" %>
-      <%= form.text_area :description, rows: 5,
-        class: "block w-full rounded-2xl bg-[#1f2a3a] text-white border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
-    </div>
+  <!-- NOTES -->
+  <div>
+    <%= form.label :notes, class: "block text-sm font-semibold text-gray-700 mb-2" %>
+    <%= form.text_area :notes, rows: 5,
+    class: "block w-full rounded-2xl bg-gray-100 text-gray-600 border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
+  </div>
 
-    <!-- NOTES -->
-    <div>
-      <%= form.label :notes, class: "block text-sm font-semibold text-gray-300 mb-2" %>
-      <%= form.text_area :notes, rows: 5,
-        class: "block w-full rounded-2xl bg-[#1f2a3a] text-white border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
-    </div>
-
-    <!-- BENEFITS & PROPERTIES -->
-    <div class="mb-4">
-      <%= form.label :tag_ids, "Benefits & Properties", class: "block font-bold mb-2" %>
+  <!-- BENEFITS & PROPERTIES -->
+  <div class="mb-4">
+    <%= form.label :tag_ids, "Benefits & Properties", class: "block font-bold mb-2 text-gray-700" %>
 
       <div class="grid grid-cols-2 gap-2">
         <%= form.collection_check_boxes :tag_ids, Tag.all, :id, :name do |cb| %>

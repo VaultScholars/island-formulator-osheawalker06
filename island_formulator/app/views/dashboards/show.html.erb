@@ -1,90 +1,140 @@
 <% content_for :title, "Dashboard" %>
 
-<div class="w-full">
-  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div class="container mx-auto mt-12 px-6">
+  <!-- Header (match Ingredient List style) -->
+  <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-12">
     <div>
-      <h1 class="text-4xl font-extrabold text-slate-100">Dashboard</h1>
-      <p class="text-slate-300 mt-1">Your overview: ingredients, recipes, inventory, and batches.</p>
+      <h1 class="text-5xl font-extrabold text-indigo-300 tracking-wide">
+        Dashboard
+      </h1>
+      <p class="text-indigo-200/80 mt-2">
+        Your overview: ingredients, recipes, inventory, and batches.
+      </p>
     </div>
 
-    <div class="flex flex-wrap gap-2">
-      <%= link_to "Add Ingredient", new_ingredient_path, class: "rounded-xl px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-semibold" %>
-      <%= link_to "New Recipe", new_recipe_path, class: "rounded-xl px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold" %>
-      <%= link_to "Add Inventory", new_inventory_item_path, class: "rounded-xl px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold" %>
-      <%= link_to "Log Batch", new_batch_path, class: "rounded-xl px-4 py-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold" %>
-    </div>
-  </div>
+    <!-- Action buttons (match Add New Ingredient button style) -->
+    <div class="flex flex-wrap gap-3">
+      <%= link_to "Add Ingredient", new_ingredient_path,
+        class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200" %>
 
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-    <div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
-      <p class="text-slate-300 text-xs uppercase tracking-widest">Ingredients</p>
-      <p class="text-4xl font-extrabold text-slate-100 mt-2"><%= @stats[:ingredients] %></p>
-      <p class="text-slate-400 mt-1 text-sm">Total saved</p>
-    </div>
+      <%= link_to "Add New Recipe", new_recipe_path,
+        class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200" %>
 
-    <div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
-      <p class="text-slate-300 text-xs uppercase tracking-widest">Recipes</p>
-      <p class="text-4xl font-extrabold text-slate-100 mt-2"><%= @stats[:recipes] %></p>
-      <p class="text-slate-400 mt-1 text-sm">Formulas created</p>
-    </div>
+      <%= link_to "Add Inventory", new_inventory_item_path,
+        class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200" %>
 
-    <div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
-      <p class="text-slate-300 text-xs uppercase tracking-widest">Inventory</p>
-      <p class="text-4xl font-extrabold text-slate-100 mt-2"><%= @stats[:inventory] %></p>
-      <p class="text-slate-400 mt-1 text-sm">Purchases tracked</p>
-    </div>
-
-    <div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg p-6">
-      <p class="text-slate-300 text-xs uppercase tracking-widest">Batches</p>
-      <p class="text-4xl font-extrabold text-slate-100 mt-2"><%= @stats[:batches] %></p>
-      <p class="text-slate-400 mt-1 text-sm">Production logs</p>
+      <%= link_to "Log Batch", new_batch_path,
+        class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200" %>
     </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <div class="bg-slate-900/40 border border-white/10 rounded-2xl shadow-lg p-6">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl font-extrabold text-slate-100">Recent Recipes</h2>
-        <%= link_to "View all", recipes_path, class: "text-slate-300 hover:text-white underline" %>
+  <!-- Flash / notice (match Ingredient page) -->
+  <% if notice.present? %>
+    <p class="mb-6 text-indigo-700 font-medium"><%= notice %></p>
+  <% end %>
+
+  <!-- Stats cards (match Ingredient card vibe) -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+    <div class="bg-indigo-50 border-4 border-purple-300 shadow-lg p-8 rounded-[60px] hover:shadow-2xl transition duration-300">
+      <p class="text-xs font-semibold text-indigo-800 uppercase bg-purple-200 rounded-full inline-block px-4 py-1">
+        Ingredients
+      </p>
+      <p class="text-4xl font-extrabold text-indigo-900 mt-4"><%= @stats[:ingredients] %></p>
+      <p class="text-gray-600 mt-2">Total saved</p>
+      <div class="mt-6 border-t-2 border-purple-200 pt-4 flex justify-between items-center">
+        <%= link_to "View", ingredients_path, class: "text-purple-600 font-medium hover:text-indigo-800" %>
+        <span class="text-gray-400 text-sm">#All</span>
+      </div>
+    </div>
+
+    <div class="bg-indigo-50 border-4 border-purple-300 shadow-lg p-8 rounded-[60px] hover:shadow-2xl transition duration-300">
+      <p class="text-xs font-semibold text-indigo-800 uppercase bg-purple-200 rounded-full inline-block px-4 py-1">
+        Recipes
+      </p>
+      <p class="text-4xl font-extrabold text-indigo-900 mt-4"><%= @stats[:recipes] %></p>
+      <p class="text-gray-600 mt-2">Formulas created</p>
+      <div class="mt-6 border-t-2 border-purple-200 pt-4 flex justify-between items-center">
+        <%= link_to "View", recipes_path, class: "text-purple-600 font-medium hover:text-indigo-800" %>
+        <span class="text-gray-400 text-sm">#All</span>
+      </div>
+    </div>
+
+    <div class="bg-indigo-50 border-4 border-purple-300 shadow-lg p-8 rounded-[60px] hover:shadow-2xl transition duration-300">
+      <p class="text-xs font-semibold text-indigo-800 uppercase bg-purple-200 rounded-full inline-block px-4 py-1">
+        Inventory
+      </p>
+      <p class="text-4xl font-extrabold text-indigo-900 mt-4"><%= @stats[:inventory] %></p>
+      <p class="text-gray-600 mt-2">Purchases tracked</p>
+      <div class="mt-6 border-t-2 border-purple-200 pt-4 flex justify-between items-center">
+        <%= link_to "View", inventory_items_path, class: "text-purple-600 font-medium hover:text-indigo-800" %>
+        <span class="text-gray-400 text-sm">#All</span>
+      </div>
+    </div>
+
+    <div class="bg-indigo-50 border-4 border-purple-300 shadow-lg p-8 rounded-[60px] hover:shadow-2xl transition duration-300">
+      <p class="text-xs font-semibold text-indigo-800 uppercase bg-purple-200 rounded-full inline-block px-4 py-1">
+        Batches
+      </p>
+      <p class="text-4xl font-extrabold text-indigo-900 mt-4"><%= @stats[:batches] %></p>
+      <p class="text-gray-600 mt-2">Production logs</p>
+      <div class="mt-6 border-t-2 border-purple-200 pt-4 flex justify-between items-center">
+        <%= link_to "View", batches_path, class: "text-purple-600 font-medium hover:text-indigo-800" %>
+        <span class="text-gray-400 text-sm">#All</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent panels (same card language) -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 pb-24">
+    <!-- Recent Recipes -->
+    <div class="bg-indigo-50 border-4 border-purple-300 shadow-lg p-8 rounded-[60px] hover:shadow-2xl transition duration-300">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-indigo-900">Recent Recipes</h2>
+        <%= link_to "View all", recipes_path, class: "text-purple-600 font-medium hover:text-indigo-800" %>
       </div>
 
       <% if @recent_recipes.any? %>
-        <div class="space-y-3">
+        <div class="space-y-4">
           <% @recent_recipes.each do |recipe| %>
-            <div class="bg-slate-900/60 border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+            <div class="bg-white/70 border-2 border-purple-200 rounded-3xl p-5 flex items-center justify-between">
               <div>
-                <p class="text-slate-100 font-semibold"><%= recipe.title %></p>
-                <p class="text-slate-400 text-sm"><%= recipe.product_type %></p>
+                <p class="text-indigo-900 font-bold"><%= recipe.title %></p>
+                <p class="text-gray-600 text-sm"><%= recipe.product_type %></p>
               </div>
-              <%= link_to "Open", recipe_path(recipe), class: "rounded-lg px-3 py-2 bg-white/10 hover:bg-white/15 text-slate-100 font-semibold" %>
+              <%= link_to "Open", recipe_path(recipe),
+                class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-2 px-5 rounded-full shadow-md transition duration-200" %>
             </div>
           <% end %>
         </div>
       <% else %>
-        <p class="text-slate-300">No recipes yet.</p>
+        <p class="text-gray-600">No recipes yet.</p>
       <% end %>
     </div>
 
-    <div class="bg-slate-900/40 border border-white/10 rounded-2xl shadow-lg p-6">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-2xl font-extrabold text-slate-100">Recent Batches</h2>
-        <%= link_to "View all", batches_path, class: "text-slate-300 hover:text-white underline" %>
+    <!-- Recent Batches -->
+    <div class="bg-indigo-50 border-4 border-purple-300 shadow-lg p-8 rounded-[60px] hover:shadow-2xl transition duration-300">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-indigo-900">Recent Batches</h2>
+        <%= link_to "View all", batches_path, class: "text-purple-600 font-medium hover:text-indigo-800" %>
       </div>
 
       <% if @recent_batches.any? %>
-        <div class="space-y-3">
+        <div class="space-y-4">
           <% @recent_batches.each do |batch| %>
-            <div class="bg-slate-900/60 border border-white/10 rounded-2xl p-4 flex items-center justify-between">
+            <div class="bg-white/70 border-2 border-purple-200 rounded-3xl p-5 flex items-center justify-between">
               <div>
-                <p class="text-slate-100 font-semibold"><%= batch.recipe.title %></p>
-                <p class="text-slate-400 text-sm">Made on <%= batch.made_on %></p>
+                <p class="text-indigo-900 font-bold"><%= batch.recipe&.title || "Unknown recipe" %></p>
+                <p class="text-gray-600 text-sm">
+                  Made on <%= batch.made_on&.strftime("%b %d, %Y") %>
+                </p>
               </div>
-              <%= link_to "Details", batch_path(batch), class: "rounded-lg px-3 py-2 bg-white/10 hover:bg-white/15 text-slate-100 font-semibold" %>
+              <%= link_to "Details", batch_path(batch),
+                class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-2 px-5 rounded-full shadow-md transition duration-200" %>
             </div>
           <% end %>
         </div>
       <% else %>
-        <p class="text-slate-300">No batches yet.</p>
+        <p class="text-gray-600">No batches yet.</p>
       <% end %>
     </div>
   </div>

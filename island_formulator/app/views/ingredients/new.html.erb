@@ -1,8 +1,20 @@
-<% content_for :title, "New ingredient" %>
+<% content_for :title, "New Ingredient" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New ingredient</h1>
-  
-  <%= render "form", ingredient: @ingredient %>
+<div class="container mx-auto mt-12 px-6">
+  <div class="flex justify-between items-center mb-12">
+    <h1 class="text-5xl font-extrabold text-indigo-300 tracking-wide">
+      New Ingredient
+    </h1>
 
+    <%= link_to "Back to Ingredients", ingredients_path,
+      class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200" %>
+  </div>
+
+  <% if notice.present? %>
+    <p class="mb-6 text-indigo-700 font-medium"><%= notice %></p>
+  <% end %>
+
+  <!-- Form Card (same card language as ingredients) -->
+    <%= render "form", ingredient: @ingredient %>
+  </div>
 </div>
