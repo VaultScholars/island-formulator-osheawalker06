@@ -15,7 +15,14 @@
 <!-- PHOTO UPLOAD -->
 <div class="my-4">
   <%= form.label :photo, "Ingredient Photo", class: "block font-medium mb-2 text-gray-700" %>
-  <%= form.file_field :photo, class: "block w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 hover:file:bg-gray-200" %>
+
+  <%= form.file_field :photo,
+    class: "block w-full text-gray-700 text-sm
+            file:mr-4 file:py-2 file:px-4
+            file:rounded-md file:border-0
+            file:text-sm file:font-semibold
+            file:bg-gray-100 file:text-black
+            hover:file:bg-gray-200" %>
 </div>
 
 <div class="space-y-6">
@@ -65,16 +72,15 @@
     <div class="flex flex-wrap items-center gap-4 pt-2">
       <%= form.submit(
         ingredient.persisted? ? "Update Ingredient" : "Create Ingredient",
-        class: "w-full sm:w-auto rounded-xl px-8 py-4 bg-[#311432] hover:bg-[#4A1E48] text-white font-bold shadow-md transition duration-200"
-      ) %>
+        class: "bg-[#311432] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200"      )%>
 
       <% if ingredient.persisted? %>
         <%= link_to "Show this ingredient", ingredient,
-          class: "inline-block rounded-xl px-6 py-3 bg-[#9E7BB5] hover:brightness-110 text-white font-semibold shadow-md transition duration-200" %>
-      <% end %>
+          class: "bg-[#9E7BB5] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200" %>
+        <% end %>
 
       <%= link_to "Back to ingredients", ingredients_path,
-        class: "inline-block rounded-xl px-6 py-3 bg-[#9E7BB5] hover:brightness-110 text-white font-semibold shadow-md transition duration-200" %>
+        class: "bg-[#9E7BB5] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200" %>
     </div>
   </div>
 <% end %>
