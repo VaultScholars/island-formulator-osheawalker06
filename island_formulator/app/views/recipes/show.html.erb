@@ -1,57 +1,66 @@
-<% content_for :title, "Showing recipe" %>
+<% content_for :title, "Recipe View" %>
 
 <div class="md:w-2/3 w-full">
-  <% if notice.present? %>
-    <p
-      class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block"
-      id="notice"
-    >
-      <%= notice %>
-    </p>
-  <% end %>
-
   <% if @recipe.photo.attached? %>
     <%= image_tag @recipe.photo, class: "w-full max-w-md h-64 object-cover rounded-xl mb-6" %>
   <% end %>
 
-  <h1 class="font-bold text-4xl mb-6"><%= @recipe.title %></h1>
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice">
+      <%= notice %>
+    </p>
+  <% end %>
 
-  <p class="mb-4 text-gray-600">
-    <strong>Product Type:</strong> <%= @recipe.product_type %>
-  </p>
+  <h1 class="font-bold text-gray-700 text-4xl mb-6">Recipe View</h1>
 
-  <div class="mb-6">
-    <p class="font-semibold mb-2">Method:</p>
-    <div class="prose max-w-none">
-      <%= simple_format(@recipe.method) %>
+  <!-- Recipe content (similar structure to ingredient render) -->
+  <div class="space-y-6 text-gray-600">
+    <div>
+      <strong class="block font-medium mb-1 text-gray-700">Title:</strong>
+      <%= @recipe.title %>
+    </div>
+
+    <div>
+      <strong class="block font-medium mb-1 text-gray-700">Product Type:</strong>
+      <%= @recipe.product_type %>
+    </div>
+
+    <div>
+      <strong class="block font-medium mb-1 text-gray-700">Method:</strong>
+      <div class="prose max-w-none">
+        <%= simple_format(@recipe.method) %>
+      </div>
+    </div>
+
+    <div>
+      <strong class="block font-medium mb-3 text-gray-700">Ingredients:</strong>
+
+      <ul class="space-y-2">
+        <% @recipe.recipe_ingredients.each do |ri| %>
+          <li class="bg-gray-100 p-3 rounded-lg">
+            <span class="font-semibold"><%= ri.quantity %></span>
+            <span class="mx-1">—</span>
+            <%= ri.ingredient.name %>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 
-  <h2 class="text-2xl font-semibold mb-4">Ingredients</h2>
+  <div class="flex items-center gap-6 mt-8 flex-wrap">
+    <%= link_to "Edit this recipe", edit_recipe_path(@recipe),
+      class: "bg-[#9E7BB5] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200" %>
 
-  <ul class="space-y-2 mb-8">
-    <% @recipe.recipe_ingredients.each do |ri| %>
-      <li class="bg-gray-100 p-3 rounded-lg">
-        <span class="font-semibold"><%= ri.quantity %></span>
-        <span class="mx-1">—</span>
-        <%= ri.ingredient.name %>
-      </li>
-    <% end %>
-  </ul>
+    <%= link_to "Back to recipes", recipes_path,
+      class: "bg-[#9E7BB5] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200" %>
 
-  <div class="flex flex-wrap gap-4">
-    <%= link_to "Edit", edit_recipe_path(@recipe),
-      class: "px-6 py-3 bg-[#9E7BB5] text-white rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200" %>
+    <%= link_to "Log a new batch", new_batch_path(recipe_id: @recipe.id),
+      class: "bg-[#311432] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200" %>
 
-    <%= link_to "Back", recipes_path,
-      class: "px-6 py-3 bg-gray-200 rounded-xl font-semibold shadow-md hover:bg-gray-300 transition duration-200" %>
-
-    <%= link_to "Log a New Batch", new_batch_path(recipe_id: @recipe.id),
-  class: "rounded-lg py-3 px-5 bg-green-600 text-white block font-medium" %>
-
-    <%= button_to "Destroy", @recipe,
+    <%= button_to "Destroy this recipe", @recipe,
       method: :delete,
+      form_class: "inline",
       data: { turbo_confirm: "Are you sure?" },
-      class: "px-6 py-3 bg-red-600 text-white rounded-xl font-semibold shadow-md hover:bg-red-500 transition duration-200" %>
+      class: "bg-[#630436] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-125 transition duration-200" %>
   </div>
 </div>

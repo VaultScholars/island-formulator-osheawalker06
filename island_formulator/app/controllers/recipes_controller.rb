@@ -9,20 +9,24 @@ class RecipesController < ApplicationController
   def show
   end
 
-  def new
-    @recipe = current_user.recipes.build
-    5.times { @recipe.recipe_ingredients.build }
-  end
+   def new
+    @recipe = current_user.recipes.new
+    3.times { @recipe.recipe_ingredients.build }
+   end
 
   def create
-    @recipe = current_user.recipes.build(recipe_params)
+    @recipe = current_user.recipes.new(recipe_params)
 
     if @recipe.save
-      redirect_to @recipe, notice: "Recipe was successfully created."
+      redirect_to @recipe, notice: "Recipe created."
     else
+      missing = 3 - @recipe.recipe_ingredients.size
+      missing.times { @recipe.recipe_ingredients.build } if missing.positive?
+
       render :new, status: :unprocessable_entity
     end
   end
+
 
   def edit
     @recipe.recipe_ingredients.build if @recipe.recipe_ingredients.empty?

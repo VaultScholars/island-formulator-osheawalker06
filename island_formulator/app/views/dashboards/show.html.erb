@@ -8,12 +8,13 @@
         Dashboard
       </h1>
       <p class="text-indigo-200/80 mt-2">
-        Your overview: ingredients, recipes, inventory, and batches.
+
+        
       </p>
     </div>
 
     <!-- Action buttons (match Add New Ingredient button style) -->
-    <div class="flex flex-wrap gap-3">
+    <div class="flex flex-wrap justify-center gap-6 w-full px-40">
       <%= link_to "Add Ingredient", new_ingredient_path,
         class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200" %>
 
@@ -26,7 +27,6 @@
       <%= link_to "Log Batch", new_batch_path,
         class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200" %>
     </div>
-  </div>
 
   <!-- Flash / notice (match Ingredient page) -->
   <% if notice.present? %>
@@ -96,7 +96,7 @@
       <% if @recent_recipes.any? %>
         <div class="space-y-4">
           <% @recent_recipes.each do |recipe| %>
-            <div class="bg-white/70 border-2 border-purple-200 rounded-3xl p-5 flex items-center justify-between">
+            <div class="bg-white/70 rounded-3xl p-5 flex items-center justify-between">
               <div>
                 <p class="text-indigo-900 font-bold"><%= recipe.title %></p>
                 <p class="text-gray-600 text-sm"><%= recipe.product_type %></p>
@@ -121,7 +121,7 @@
       <% if @recent_batches.any? %>
         <div class="space-y-4">
           <% @recent_batches.each do |batch| %>
-            <div class="bg-white/70 border-2 border-purple-200 rounded-3xl p-5 flex items-center justify-between">
+            <div class="bg-white/70 rounded-3xl p-5 flex items-center justify-between">
               <div>
                 <p class="text-indigo-900 font-bold"><%= batch.recipe&.title || "Unknown recipe" %></p>
                 <p class="text-gray-600 text-sm">

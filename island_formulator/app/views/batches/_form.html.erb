@@ -1,8 +1,9 @@
 <%= form_with(model: batch, class: "contents") do |form| %>
   <% if batch.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(batch.errors.count, "error") %> prohibited this batch from being saved:</h2>
-
+    <div id="error_explanation" class="bg-red-50 text-red-700 px-4 py-3 rounded-md mb-6">
+      <h2 class="font-bold mb-2">
+        <%= pluralize(batch.errors.count, "error") %> prohibited this batch from being saved:
+      </h2>
       <ul class="list-disc ml-6">
         <% batch.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -11,27 +12,36 @@
     </div>
   <% end %>
 
-  <div class="my-5 text-gray-600">
-    <%= form.label :recipe_id, "Recipe" %>
-    <%= form.collection_select :recipe_id, current_user.recipes, :id, :title,
-      { prompt: "Select a recipe" },
-      { class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" } %>
-  </div>
+  <div class="space-y-6">
+    <!-- RECIPE -->
+    <div>
+      <%= form.label :recipe_id, "Recipe", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+      <%= form.collection_select :recipe_id, current_user.recipes, :id, :title,
+        { prompt: "Select a recipe" },
+        { class: "block w-full rounded-2xl bg-gray-100 text-gray-600 border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" } %>
+    </div>
 
-  <div class="my-5 text-gray-600">
-    <%= form.label :made_on, "Date Made" %>
-    <%= form.date_field :made_on,
-      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+    <!-- DATE MADE -->
+    <div>
+      <%= form.label :made_on, "Date Made", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+      <%= form.date_field :made_on,
+        class: "block w-full rounded-2xl bg-gray-100 text-gray-600 border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
+    </div>
 
-  <div class="my-5 text-gray-600">
-    <%= form.label :notes, "Production Notes" %>
-    <%= form.text_area :notes, rows: 6,
-      class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+    <!-- PRODUCTION NOTES -->
+    <div>
+      <%= form.label :notes, "Production Notes", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+      <%= form.text_area :notes, rows: 6,
+        class: "block w-full rounded-2xl bg-gray-100 text-gray-600 border-2 border-[#9E7BB5] px-4 py-3 shadow-md focus:outline-none focus:ring-2 focus:ring-[#9E7BB5]" %>
+    </div>
 
-  <div class="inline">
-    <%= form.submit "Log Batch",
-      class: "bg-[#311432] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200 cursor-pointer" %>
+    <!-- ACTIONS -->
+    <div class="flex flex-wrap items-center gap-4 pt-2">
+      <%= form.submit "Log Batch",
+        class: "bg-[#311432] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200 cursor-pointer" %>
+
+      <%= link_to "Back to batches", batches_path,
+        class: "bg-[#9E7BB5] text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:brightness-110 transition duration-200" %>
+    </div>
   </div>
 <% end %>

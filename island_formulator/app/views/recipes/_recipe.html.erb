@@ -1,29 +1,66 @@
-<div class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg overflow-hidden">
-  <% if recipe.photo.attached? %>
-    <%= image_tag recipe.photo, class: "w-full h-64 object-cover" %>
+<div id="<%= dom_id ingredient %>" class="bg-slate-900/60 border border-purple-300/20 rounded-2xl shadow-lg overflow-hidden">
+  <% if ingredient.photo&.attached? %>
+    <%= image_tag ingredient.photo, class: "w-full h-64 object-cover" %>
   <% else %>
     <div class="w-full h-64 bg-slate-900/80 border-b border-white/10 flex items-center justify-center">
       <p class="text-slate-400">No photo</p>
     </div>
   <% end %>
 
-  <div class="p-6">
-    <div class="flex items-start justify-between gap-4">
-      <div>
-        <p class="text-xs uppercase tracking-widest text-slate-300"><%= recipe.product_type %></p>
-        <h3 class="text-xl font-extrabold text-slate-100 mt-1"><%= recipe.title %></h3>
-        <p class="text-slate-400 text-sm mt-1">
-          <%= pluralize(recipe.recipe_ingredients.size, "ingredient") %>
-        </p>
-      </div>
+  <div class="p-6 space-y-5">
+    <div>
+      <strong class="block text-xs uppercase tracking-widest text-slate-300 mb-1">Name</strong>
+      <p class="text-xl font-extrabold text-slate-100"><%= ingredient.name %></p>
     </div>
 
-    <div class="mt-5 flex gap-2">
-      <%= link_to "View", recipe_path(recipe), class: "rounded-lg px-3 py-2 bg-white/10 hover:bg-white/15 text-slate-100 font-semibold" %>
-      <%= link_to "Edit", edit_recipe_path(recipe), class: "rounded-lg px-3 py-2 bg-purple-500/20 hover:bg-purple-500/30 text-slate-100 font-semibold" %>
-      <%= button_to "Delete", recipe, method: :delete,
+    <% if ingredient.category.present? %>
+      <div>
+        <strong class="block text-xs uppercase tracking-widest text-slate-300 mb-1">Category</strong>
+        <p class="text-slate-200"><%= ingredient.category %></p>
+      </div>
+    <% end %>
+
+    <div>
+      <strong class="block text-xs uppercase tracking-widest text-slate-300 mb-2">Tags</strong>
+
+      <% if ingredient.tags.any? %>
+        <div class="flex flex-wrap gap-2">
+          <% ingredient.tags.each do |tag| %>
+            <span class="inline-block bg-purple-500/20 text-slate-100 text-xs font-semibold px-2.5 py-1 rounded-full border border-purple-300/30">
+              <%= tag.name %>
+            </span>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-slate-400 italic">No tags selected</p>
+      <% end %>
+    </div>
+
+    <% if ingredient.description.present? %>
+      <div>
+        <strong class="block text-xs uppercase tracking-widest text-slate-300 mb-1">Description</strong>
+        <p class="text-slate-200"><%= ingredient.description %></p>
+      </div>
+    <% end %>
+
+    <% if ingredient.notes.present? %>
+      <div>
+        <strong class="block text-xs uppercase tracking-widest text-slate-300 mb-1">Notes</strong>
+        <p class="text-slate-200"><%= ingredient.notes %></p>
+      </div>
+    <% end %>
+
+    <!-- Actions (optional, to match recipe card vibe) -->
+    <div class="pt-2 flex flex-wrap gap-2">
+      <%= link_to "View", ingredient_path(ingredient),
+        class: "rounded-lg px-3 py-2 bg-white/10 hover:bg-white/15 text-slate-100 font-semibold" %>
+
+      <%= link_to "Edit", edit_ingredient_path(ingredient),
+        class: "rounded-lg px-3 py-2 bg-purple-500/20 hover:bg-purple-500/30 text-slate-100 font-semibold" %>
+
+      <%= button_to "Delete", ingredient, method: :delete,
         class: "rounded-lg px-3 py-2 bg-red-600/80 hover:bg-red-600 text-white font-semibold",
-        data: { turbo_confirm: "Delete this recipe?" } %>
+        data: { turbo_confirm: "Delete this ingredient?" } %>
     </div>
   </div>
 </div>
