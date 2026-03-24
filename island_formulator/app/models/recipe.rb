@@ -4,6 +4,8 @@ class Recipe < ApplicationRecord
   has_many :recipe_ingredients, inverse_of: :recipe, dependent: :destroy
   has_many :ingredients, through: :recipe_ingredients
   has_many :batches, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_by_users, through: :favorites, source: :user
 
   accepts_nested_attributes_for :recipe_ingredients,
                                 allow_destroy: true,

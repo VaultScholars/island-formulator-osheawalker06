@@ -1,12 +1,12 @@
-<% content_for :title, "Recipes" %>
+<% content_for :title, "My Favorite Recipes" %>
 
 <div class="container mx-auto mt-12 px-6">
   <div class="flex justify-between items-center mb-12">
     <h1 class="text-5xl font-extrabold text-indigo-300 tracking-wide">
-      Recipes
+      My Favorite Recipes
     </h1>
 
-    <%= link_to "Add New Recipe", new_recipe_path,
+    <%= link_to "Back to Recipes", recipes_path,
       class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200" %>
   </div>
 
@@ -14,9 +14,9 @@
     <p class="mb-6 text-indigo-700 font-medium"><%= notice %></p>
   <% end %>
 
-  <% if @recipes.any? %>
-    <div id="recipes" class="grid grid-cols-1 md:grid-cols-2 gap-10 pb-24">
-      <% @recipes.each do |recipe| %>
+  <% if @favorite_recipes.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 pb-24">
+      <% @favorite_recipes.each do |recipe| %>
         <div class="bg-indigo-50 border-4 border-purple-300 shadow-lg p-8 rounded-[60px] relative hover:shadow-2xl transition duration-300">
           <div class="flex justify-between items-start gap-6">
             <div class="flex-1 min-w-0">
@@ -38,17 +38,10 @@
                 <%= link_to "View", recipe,
                   class: "text-purple-600 font-medium hover:text-indigo-800" %>
 
-                <% if current_user.favorited?(recipe) %>
-                  <%= button_to "❤️", recipe_favorite_path(recipe),
-                    method: :delete,
-                    form_class: "inline-block",
-                    class: "text-2xl bg-transparent border-0 p-0 hover:scale-110 transition duration-200 cursor-pointer" %>
-                <% else %>
-                  <%= button_to "🤍", recipe_favorite_path(recipe),
-                    method: :post,
-                    form_class: "inline-block",
-                    class: "text-2xl bg-transparent border-0 p-0 hover:scale-110 transition duration-200 cursor-pointer" %>
-                <% end %>
+                <%= button_to "❤️", recipe_favorite_path(recipe),
+                  method: :delete,
+                  form_class: "inline-block",
+                  class: "text-2xl bg-transparent border-0 p-0 hover:scale-110 transition duration-200 cursor-pointer" %>
               </div>
             </div>
 
@@ -68,13 +61,8 @@
     </div>
   <% else %>
     <div class="bg-indigo-50 border-4 border-purple-200 shadow-lg p-10 rounded-[40px] text-center">
-      <p class="text-indigo-900 text-xl font-bold">No recipes yet.</p>
-      <p class="text-gray-600 mt-2">Create one and start logging batches.</p>
-
-      <div class="mt-6">
-        <%= link_to "Create your first recipe", new_recipe_path,
-          class: "bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-md transition duration-200 inline-block" %>
-      </div>
+      <p class="text-indigo-900 text-xl font-bold">No favorite recipes yet.</p>
+      <p class="text-gray-600 mt-2">Save recipes and they’ll appear here.</p>
     </div>
   <% end %>
 </div>

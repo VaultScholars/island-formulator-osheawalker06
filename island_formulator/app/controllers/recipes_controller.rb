@@ -7,12 +7,13 @@ class RecipesController < ApplicationController
   end
 
   def show
+    @recipe = current_user.recipes.find(params[:id])
   end
 
-   def new
+  def new
     @recipe = current_user.recipes.new
     3.times { @recipe.recipe_ingredients.build }
-   end
+  end
 
   def create
     @recipe = current_user.recipes.new(recipe_params)
@@ -26,7 +27,6 @@ class RecipesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
 
   def edit
     @recipe.recipe_ingredients.build if @recipe.recipe_ingredients.empty?

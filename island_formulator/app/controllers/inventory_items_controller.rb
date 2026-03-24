@@ -6,7 +6,10 @@ class InventoryItemsController < ApplicationController
     @inventory_items = current_user.inventory_items.includes(:ingredient).order(purchase_date: :desc)
   end
 
-  def show; end
+  def show
+    @inventory_item = current_user.inventory_items.find(params[:id])
+  end
+
 
   def new
     @inventory_item = current_user.inventory_items.build
